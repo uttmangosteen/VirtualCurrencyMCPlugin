@@ -19,7 +19,7 @@ commands:
     §d/vcop balance <player> ... <player>の所持コインを確認\n
     §d/vcop give <player> <amount> ... <player>に対して<amount>枚通貨を発行\n
     §d/vcop check ... DB全履歴からの通貨の整合性を確認(取引はすべて停止します)\n
-    §d/vcop db ... DBに再接続\n
+    §d/vcop reload ... DBに再接続\n
     §d=========================================
     "
     permission: vc.op
