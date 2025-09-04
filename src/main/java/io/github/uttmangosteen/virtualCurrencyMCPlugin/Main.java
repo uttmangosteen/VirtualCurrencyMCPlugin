@@ -13,15 +13,14 @@ public final class Main extends JavaPlugin {
         plugin = this;
         saveDefaultConfig();
 
-        MySQL mysql = new MySQL();
-        Global.mysql = mysql;
+        Global.mysql = new MySQL();
 
         Objects.requireNonNull(getCommand("vc")).setExecutor(new Commands());
         Objects.requireNonNull(getCommand("vcop")).setExecutor(new Commands());
 
         if (!Global.isRunning) return;
 
-        Global.blockChain = new BlockChain(mysql, getConfig().getInt("blockchain.transactions_per_block", 16));
+        Global.blockChain = new BlockChain();
         getLogger().info("正常に起動しました");
     }
 

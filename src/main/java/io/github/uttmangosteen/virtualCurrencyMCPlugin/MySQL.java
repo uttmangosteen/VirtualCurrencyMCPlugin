@@ -2,10 +2,7 @@ package io.github.uttmangosteen.virtualCurrencyMCPlugin;
 
 import org.intellij.lang.annotations.Language;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class MySQL {
     private Connection connection;
@@ -22,10 +19,6 @@ public class MySQL {
         pass = Global.config.getString("mysql.pass", "");
         dbname = Global.config.getString("mysql.dbname", "virtual_currency_database");
 
-        initialize();
-    }
-
-    private void initialize() {
         if (!connect()) {
             Main.plugin.getLogger().severe("DB接続失敗");
             Global.isRunning = false;
@@ -85,38 +78,38 @@ public class MySQL {
     private boolean createTables() {
         try {
             @Language("MySQL") String transactions = """
-                CREATE TABLE IF NOT EXISTS transactions (
-                    indexes BIGINT PRIMARY KEY,
-                    timestamp BIGINT NOT NULL,
-                    sender VARCHAR(16) NOT NULL,
-                    sender_uuid VARCHAR(36) NOT NULL,
-                    receiver VARCHAR(16) NOT NULL,
-                    receiver_uuid VARCHAR(36) NOT NULL,
-                    amount BIGINT NOT NULL
-                )
-                """;
+                    CREATE TABLE IF NOT EXISTS transactions (
+                        indexes BIGINT PRIMARY KEY,
+                        timestamp BIGINT NOT NULL,
+                        sender VARCHAR(16) NOT NULL,
+                        sender_uuid VARCHAR(36) NOT NULL,
+                        receiver VARCHAR(16) NOT NULL,
+                        receiver_uuid VARCHAR(36) NOT NULL,
+                        amount BIGINT NOT NULL
+                    )
+                    """;
             execute(transactions);
 
             @Language("MySQL") String blocks = """
-                CREATE TABLE IF NOT EXISTS blocks (
-                    indexes BIGINT PRIMARY KEY,
-                    timestamp BIGINT NOT NULL,
-                    merkle_root BINARY(32) NOT NULL,
-                    previous_hash BINARY(32) NOT NULL,
-                    hash BINARY(32) NOT NULL
-                )
-                """;
+                    CREATE TABLE IF NOT EXISTS blocks (
+                        indexes BIGINT PRIMARY KEY,
+                        timestamp BIGINT NOT NULL,
+                        merkle_root BINARY(32) NOT NULL,
+                        previous_hash BINARY(32) NOT NULL,
+                        hash BINARY(32) NOT NULL
+                    )
+                    """;
             execute(blocks);
 
             @Language("MySQL") String block_transactions = """
-                CREATE TABLE IF NOT EXISTS block_transactions (
-                block_index BIGINT,
-                transaction_index BIGINT,
-                FOREIGN KEY (block_index) REFERENCES blocks(indexes),
-                FOREIGN KEY (transaction_index) REFERENCES transactions(indexes),
-                PRIMARY KEY (block_index, transaction_index)
-                )
-                """;
+                    CREATE TABLE IF NOT EXISTS block_transactions (
+                    block_index BIGINT,
+                    transaction_index BIGINT,
+                    FOREIGN KEY (block_index) REFERENCES blocks(indexes),
+                    FOREIGN KEY (transaction_index) REFERENCES transactions(indexes),
+                    PRIMARY KEY (block_index, transaction_index)
+                    )
+                    """;
             execute(block_transactions);
 
             @Language("MySQL") String player_balance = """
