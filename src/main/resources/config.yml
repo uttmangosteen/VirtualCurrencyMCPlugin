@@ -1,0 +1,11 @@
+# データベース設定
+mysql:
+  host: "localhost"
+  port: "3306"
+  user: "utt"
+  pass: "1234"
+  dbname: "virtual_currency_database"
+
+# ブロックチェーン設定
+blockchain:
+  transactions_per_block: 16

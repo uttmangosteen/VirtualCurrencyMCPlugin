@@ -1,0 +1,33 @@
+name: VirtualCurrencyMCPlugin
+version: '1.0-SNAPSHOT'
+main: io.github.uttmangosteen.virtualCurrencyMCPlugin.Main
+api-version: '1.21'
+
+commands:
+  vc:
+    usage: "
+    §d====== VirtualCurrencyMCPlugin help ======\n
+    §d/vc balance ... 自分のUUIDに紐づけられた通貨量\n
+    §d/vc pay <player> <amount> ... <player>に<amount>枚払う\n
+    §d/vc status ... 現在の通貨の整合性を確認\n
+    §d========================================
+    "
+    permission: vc.user
+  vcop:
+    usage: "
+    §d===== VirtualCurrencyMCPlugin OP help =====\n
+    §d/vcop balance <player> ... <player>の所持コインを確認\n
+    §d/vcop give <player> <amount> ... <player>に対して<amount>枚通貨を発行\n
+    §d/vcop check ... DB全履歴からの通貨の整合性を確認(取引はすべて停止します)\n
+    §d/vcop db ... DBに再接続\n
+    §d=========================================
+    "
+    permission: vc.op
+
+permissions:
+  vc.user:
+    description: 一般プレイヤー用権限
+    default: op
+  vc.op:
+    description: 運営用権限
+    default: op
