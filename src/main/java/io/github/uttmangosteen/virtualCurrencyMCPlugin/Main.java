@@ -21,7 +21,7 @@ public final class Main extends JavaPlugin {
 
         if (!Global.isRunning) return;
 
-        Global.blockChain = new BlockChain(mysql);
+        Global.blockChain = new BlockChain(mysql, getConfig().getInt("blockchain.transactions_per_block", 16));
         getLogger().info("正常に起動しました");
     }
 
