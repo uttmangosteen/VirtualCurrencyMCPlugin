@@ -1,5 +1,6 @@
 package io.github.uttmangosteen.virtualCurrencyMCPlugin;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -56,6 +57,14 @@ public class Commands implements CommandExecutor {
             }
             case "reload" -> {
 
+                return true;
+            }
+            case "mine" -> {
+                Player player = Bukkit.getPlayer(args[1]);
+                if (player == null) {
+                    sender.sendMessage("プレイヤーがオンラインではありません");
+                    return true;
+                }
                 return true;
             }
             default -> {return false;}
