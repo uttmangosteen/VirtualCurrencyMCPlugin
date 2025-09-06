@@ -1,13 +1,16 @@
 package io.github.uttmangosteen.virtualCurrencyMCPlugin.BlockChain;
 
 import java.util.List;
+import java.util.UUID;
 
 public record Block(
-        long index,
+        long Id,
+        long nonce,
+        UUID minerUUID,
+        String minerName,
         long timestamp,
-        List<Transaction> transactions,
-        String merkleRoot,
         String previousHash,
-        String hash
+        String hash,
+        List<Transaction> transactions
 ) {
 }

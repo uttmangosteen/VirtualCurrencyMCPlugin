@@ -3,12 +3,14 @@ package io.github.uttmangosteen.virtualCurrencyMCPlugin.BlockChain;
 import java.util.UUID;
 
 public record Transaction(
-        long index,
+        long Id,
+        long blockId,
         long timestamp,
-        String sender,
         UUID senderUUID,
-        String receiver,
+        String senderName,
         UUID receiverUUID,
-        long amount
+        String receiverName,
+        long amount,
+        long fee
 ) {
 }
