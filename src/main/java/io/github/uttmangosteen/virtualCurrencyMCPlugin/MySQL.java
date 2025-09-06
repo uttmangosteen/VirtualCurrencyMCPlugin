@@ -79,38 +79,30 @@ public class MySQL {
         try {
             @Language("MySQL") String transactions = """
                     CREATE TABLE IF NOT EXISTS transactions (
-                        indexes BIGINT PRIMARY KEY,
+                        id BIGINT PRIMARY KEY,
+                        block_id BIGINT NOT NULL,
                         timestamp BIGINT NOT NULL,
-                        sender VARCHAR(16) NOT NULL,
                         sender_uuid VARCHAR(36) NOT NULL,
-                        receiver VARCHAR(16) NOT NULL,
+                        sender_name VARCHAR(16) NOT NULL,
                         receiver_uuid VARCHAR(36) NOT NULL,
-                        amount BIGINT NOT NULL
+                        receiver_name VARCHAR(16) NOT NULL,
+                        amount BIGINT NOT NULL,
+                        fee BIGINT NOT NULL,
+                        FOREIGN KEY (block_id) REFERENCES blocks(id)
                     )
                     """;
             execute(transactions);
 
             @Language("MySQL") String blocks = """
                     CREATE TABLE IF NOT EXISTS blocks (
-                        indexes BIGINT PRIMARY KEY,
+                        id BIGINT PRIMARY KEY,
                         timestamp BIGINT NOT NULL,
-                        merkle_root BINARY(32) NOT NULL,
+                        nonce BIGINT NOT NULL,
                         previous_hash BINARY(32) NOT NULL,
                         hash BINARY(32) NOT NULL
                     )
                     """;
             execute(blocks);
-
-            @Language("MySQL") String block_transactions = """
-                    CREATE TABLE IF NOT EXISTS block_transactions (
-                    block_index BIGINT,
-                    transaction_index BIGINT,
-                    FOREIGN KEY (block_index) REFERENCES blocks(indexes),
-                    FOREIGN KEY (transaction_index) REFERENCES transactions(indexes),
-                    PRIMARY KEY (block_index, transaction_index)
-                    )
-                    """;
-            execute(block_transactions);
 
             @Language("MySQL") String player_balance = """
                     CREATE TABLE IF NOT EXISTS player_balance (
