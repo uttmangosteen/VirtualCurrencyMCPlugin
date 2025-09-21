@@ -1,6 +1,5 @@
 package io.github.uttmangosteen.virtualCurrencyMCPlugin;
 
-import io.github.uttmangosteen.virtualCurrencyMCPlugin.BlockChain.BlockChain;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Objects;
@@ -20,7 +19,6 @@ public final class Main extends JavaPlugin {
 
         if (!Global.isRunning) return;
 
-        Global.blockChain = new BlockChain();
         getLogger().info("正常に起動しました");
     }
 

@@ -126,5 +126,8 @@ public class MySQL {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.executeUpdate();
         }
+
+
+
     }
 }
